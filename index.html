@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>Telegram Mini App — Test</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    Arial,
+    sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 10% 5%,
+      rgba(255,255,255,.35),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 95% 20%,
+      rgba(255,255,255,.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #5137d9 0%,
+      #7562e9 45%,
+      #ef4c9c 100%
+    );
+
+  color: #fff;
+
+  padding:
+    env(safe-area-inset-top)
+    14px
+    env(safe-area-inset-bottom);
+}
+
+/* Основной контейнер */
+
+.app {
+  max-width: 720px;
+  margin: auto;
+  padding: 18px 4px 105px;
+}
+
+/* Верхняя часть */
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,.22);
+
+  display: grid;
+  place-items: center;
+
+  font-size: 24px;
+
+  backdrop-filter: blur(12px);
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.iconbtn {
+  width: 44px;
+  height: 44px;
+
+  border: 0;
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.2);
+
+  color: #fff;
+
+  font-size: 20px;
+}
+
+/* Профиль */
+
+.profile {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin:
+    8px 5px
+    18px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00d4ff,
+      #714bff
+    );
+
+  display: grid;
+  place-items: center;
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.profile small {
+  opacity: .8;
+}
+
+.profile b {
+  font-size: 18px;
+}
+
+/* Баланс */
+
+.balance {
+  background: rgba(255,255,255,.18);
+
+  border:
+    1px solid
+    rgba(255,255,255,.2);
+
+  border-radius: 24px;
+
+  padding: 22px;
+
+  margin-bottom: 14px;
+
+  backdrop-filter: blur(18px);
+}
+
+.balance small {
+  opacity: .8;
+}
+
+.amount {
+  font-size: 37px;
+
+  font-weight: 850;
+
+  margin:
+    5px 0
+    15px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Кнопки */
+
+.btn {
+  border: 0;
+
+  border-radius: 14px;
+
+  padding:
+    13px
+    18px;
+
+  font-weight: 750;
+
+  font-size: 14px;
+}
+
+.primary {
+  background: #fff;
+  color: #5737cf;
+}
+
+.ghost {
+  background: rgba(255,255,255,.16);
+  color: #fff;
+}
+
+/* Карточки */
+
+.grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 12px;
+}
+
+.card {
+  background:
+    rgba(255,255,255,.16);
+
+  border:
+    1px solid
+    rgba(255,255,255,.16);
+
+  border-radius: 22px;
+
+  padding: 18px;
+
+  backdrop-filter: blur(15px);
+}
+
+.card .emoji {
+  font-size: 30px;
+}
+
+.card b {
+  display: block;
+
+  font-size: 22px;
+
+  margin:
+    9px 0
+    3px;
+}
+
+.card span {
+  font-size: 12px;
+  opacity: .75;
+}
+
+/* Баннер */
+
+.banner {
+  margin-top: 12px;
+
+  padding: 22px;
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(65,40,190,.72),
+      rgba(235,45,132,.72)
+    );
+}
+
+.banner h2 {
+  margin:
+    0 0
+    7px;
+
+  font-size: 23px;
+}
+
+.banner p {
+  margin: 0;
+
+  opacity: .85;
+
+  line-height: 1.4;
+}
+
+/* Нижнее меню */
+
+.nav {
+  position: fixed;
+
+  left: 14px;
+  right: 14px;
+
+  bottom:
+    calc(
+      10px +
+      env(safe-area-inset-bottom)
+    );
+
+  max-width: 692px;
+
+  margin: auto;
+
+  height: 72px;
+
+  border-radius: 25px;
+
+  background:
+    rgba(255,255,255,.94);
+
+  display: flex;
+
+  justify-content:
+    space-around;
+
+  align-items: center;
+
+  box-shadow:
+    0 10px 40px
+    rgba(0,0,0,.18);
+
+  backdrop-filter: blur(20px);
+
+  z-index: 10;
+}
+
+.nav button {
+  border: 0;
+
+  background: none;
+
+  color: #8c8c95;
+
+  font-size: 11px;
+
+  font-weight: 650;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.nav button.active {
+  color: #5737cf;
+}
+
+.nav i {
+  font-style: normal;
+  font-size: 23px;
+}
+
+/* Маленькие экраны */
+
+@media(max-width:380px) {
+
+  .amount {
+    font-size: 31px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .grid {
+    gap: 8px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- Верхняя часть -->
+
+  <div class="top">
+
+    <div class="logo">
+      ✦
+    </div>
+
+    <div class="title">
+      NOVA AI
+    </div>
+
+    <button
+      class="iconbtn"
+      onclick="tg.close()"
+    >
+      •••
+    </button>
+
+  </div>
+
+
+  <!-- Профиль -->
+
+  <div class="profile">
+
+    <div class="avatar">
+      N
+    </div>
+
+    <div>
+
+      <small>
+        Ваш AI уже анализирует рынок!
+      </small>
+
+      <br>
+
+      <b>
+        Добро пожаловать 👋
+      </b>
+
+    </div>
+
+  </div>
+
+
+  <!-- Баланс -->
+
+  <div class="balance">
+
+    <small>
+      Ваш баланс
+    </small>
+
+    <div class="amount">
+      $1,284.62
+    </div>
+
+    <div class="row">
+
+      <button
+        class="btn primary"
+        onclick="alert('Пополнение')"
+      >
+        ＋ Пополнить
+      </button>
+
+      <button
+        class="btn ghost"
+        onclick="alert('Вывод')"
+      >
+        Вывести
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Карточки -->
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="emoji">
+        📈
+      </div>
+
+      <b>
+        +12.8%
+      </b>
+
+      <span>
+        Доход за неделю
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">
+        ⚡
+      </div>
+
+      <b>
+        24/7
+      </b>
+
+      <span>
+        AI мониторинг
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">
+        💎
+      </div>
+
+      <b>
+        8,420
+      </b>
+
+      <span>
+        Ваши баллы
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">
+        👥
+      </div>
+
+      <b>
+        37
+      </b>
+
+      <span>
+        Рефералов
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- Баннер -->
+
+  <div class="banner">
+
+    <h2>
+      🎁 Бонус дня
+    </h2>
+
+    <p>
+      Активируйте сегодняшнее предложение
+      и получите дополнительные баллы
+      на баланс.
+    </p>
+
+    <br>
+
+    <button
+      class="btn primary"
+      onclick="alert('Бонус активирован!')"
+    >
+      Получить бонус
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- Нижняя навигация -->
+
+<div class="nav">
+
+  <button class="active">
+
+    <i>⌂</i>
+
+    Главная
+
+  </button>
+
+
+  <button>
+
+    <i>⌁</i>
+
+    Статистика
+
+  </button>
+
+
+  <button>
+
+    <i>◫</i>
+
+    История
+
+  </button>
+
+
+  <button>
+
+    <i>♙</i>
+
+    Профиль
+
+  </button>
+
+</div>
+
+
+<script>
+
+const tg = window.Telegram?.WebApp;
+
+if (tg) {
+
+  // Инициализация Telegram Web App
+
+  tg.ready();
+
+  // Развернуть приложение
+
+  tg.expand();
+
+
+  // Цвет верхней панели Telegram
+
+  if (tg.setHeaderColor) {
+
+    tg.setHeaderColor("#5b4bd8");
+
+  }
+
+
+  // Цвет фона Telegram
+
+  if (tg.setBackgroundColor) {
+
+    tg.setBackgroundColor("#5b4bd8");
+
+  }
+
+
+  // Цвет нижней панели
+
+  if (tg.setBottomBarColor) {
+
+    tg.setBottomBarColor("#f4f4f6");
+
+  }
+
+
+  // Отключаем стандартное свайп-закрытие
+
+  if (tg.disableVerticalSwipes) {
+
+    tg.disableVerticalSwipes();
+
+  }
+
+
+  // Полноэкранный режим
+
+  if (tg.requestFullscreen) {
+
+    try {
+
+      tg.requestFullscreen();
+
+    }
+
+    catch(e) {}
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
