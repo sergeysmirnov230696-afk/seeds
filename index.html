@@ -1,217 +1,209 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>Telegram Mini App — Test</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<title>ZENTRA Rewards</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
   margin: 0;
+  padding: 0;
   min-height: 100%;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "SF Pro Display",
+    "SF Pro Text",
     Arial,
     sans-serif;
+
+  background: #f4f6f8;
+  color: #17191d;
 }
 
 body {
-  background:
-    radial-gradient(
-      circle at 10% 5%,
-      rgba(255,255,255,.35),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 95% 20%,
-      rgba(255,255,255,.22),
-      transparent 30%
-    ),
-    linear-gradient(
-      145deg,
-      #5137d9 0%,
-      #7562e9 45%,
-      #ef4c9c 100%
-    );
-
-  color: #fff;
-
-  padding:
-    env(safe-area-inset-top)
-    14px
-    env(safe-area-inset-bottom);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Основной контейнер */
+
+/* =========================
+   APP
+========================= */
 
 .app {
-  max-width: 720px;
+
+  width: 100%;
+  max-width: 700px;
+
   margin: auto;
-  padding: 18px 4px 105px;
+
+  padding:
+    0
+    18px
+    110px;
+
 }
 
-/* Верхняя часть */
 
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.logo {
-  width: 48px;
-  height: 48px;
-
-  border-radius: 16px;
-
-  background: rgba(255,255,255,.22);
-
-  display: grid;
-  place-items: center;
-
-  font-size: 24px;
-
-  backdrop-filter: blur(12px);
-}
-
-.title {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: .5px;
-}
-
-.iconbtn {
-  width: 44px;
-  height: 44px;
-
-  border: 0;
-  border-radius: 15px;
-
-  background: rgba(255,255,255,.2);
-
-  color: #fff;
-
-  font-size: 20px;
-}
-
-/* Профиль */
+/* =========================
+   PROFILE
+========================= */
 
 .profile {
+
   display: flex;
+
   align-items: center;
 
-  gap: 12px;
+  justify-content: space-between;
 
-  margin:
-    8px 5px
-    18px;
+  padding:
+    28px
+    4px
+    24px;
+
+}
+
+.profile-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
 }
 
 .avatar {
-  width: 52px;
-  height: 52px;
+
+  width: 64px;
+  height: 64px;
 
   border-radius: 50%;
+
+  object-fit: cover;
+
+  background: #e9edf3;
+
+}
+
+.profile-name {
+
+  font-size: 27px;
+
+  font-weight: 750;
+
+  line-height: 1.1;
+
+}
+
+.profile-username {
+
+  margin-top: 6px;
+
+  font-size: 18px;
+
+  color: #858b95;
+
+}
+
+.security {
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: #f0f3f8;
+
+  font-size: 24px;
+
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance-card {
+
+  padding: 26px;
+
+  border-radius: 36px;
+
+  color: white;
 
   background:
     linear-gradient(
       135deg,
-      #00d4ff,
-      #714bff
+      #2f91dc,
+      #376dcc
     );
 
-  display: grid;
-  place-items: center;
+  box-shadow:
+    0 8px 25px
+    rgba(45,110,205,.18);
 
-  font-size: 23px;
-  font-weight: 800;
 }
 
-.profile small {
-  opacity: .8;
-}
+.balance-label {
 
-.profile b {
   font-size: 18px;
-}
 
-/* Баланс */
-
-.balance {
-  background: rgba(255,255,255,.18);
-
-  border:
-    1px solid
-    rgba(255,255,255,.2);
-
-  border-radius: 24px;
-
-  padding: 22px;
-
-  margin-bottom: 14px;
-
-  backdrop-filter: blur(18px);
-}
-
-.balance small {
   opacity: .8;
+
 }
 
-.amount {
-  font-size: 37px;
+.balance-value {
 
-  font-weight: 850;
+  margin-top: 16px;
 
-  margin:
-    5px 0
-    15px;
+  font-size: 47px;
+
+  font-weight: 800;
+
+  letter-spacing: -1.5px;
+
+  white-space: nowrap;
+
 }
 
-.row {
-  display: flex;
-  gap: 10px;
+.balance-value span {
+
+  font-size: 25px;
+
+  font-weight: 500;
+
+  opacity: .85;
+
 }
 
-/* Кнопки */
+.balance-stats {
 
-.btn {
-  border: 0;
-
-  border-radius: 14px;
-
-  padding:
-    13px
-    18px;
-
-  font-weight: 750;
-
-  font-size: 14px;
-}
-
-.primary {
-  background: #fff;
-  color: #5737cf;
-}
-
-.ghost {
-  background: rgba(255,255,255,.16);
-  color: #fff;
-}
-
-/* Карточки */
-
-.grid {
   display: grid;
 
   grid-template-columns:
@@ -219,100 +211,258 @@ body {
 
   gap: 12px;
 
-  margin-top: 12px;
+  margin-top: 28px;
+
 }
 
-.card {
+.balance-stat {
+
+  padding: 15px 18px;
+
+  border-radius: 32px;
+
   background:
     rgba(255,255,255,.16);
 
-  border:
-    1px solid
-    rgba(255,255,255,.16);
-
-  border-radius: 22px;
-
-  padding: 18px;
-
-  backdrop-filter: blur(15px);
 }
 
-.card .emoji {
-  font-size: 30px;
+.balance-stat-title {
+
+  font-size: 16px;
+
+  opacity: .78;
+
 }
 
-.card b {
-  display: block;
+.balance-stat-value {
+
+  margin-top: 5px;
 
   font-size: 22px;
 
-  margin:
-    9px 0
-    3px;
+  font-weight: 650;
+
 }
 
-.card span {
-  font-size: 12px;
-  opacity: .75;
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+
+  margin-top: 16px;
+
+  padding: 28px;
+
+  border-radius: 30px;
+
+  background: #fff;
+
+  box-shadow:
+    0 2px 12px
+    rgba(20,30,50,.06);
+
 }
 
-/* Баннер */
+.card-header {
 
-.banner {
-  margin-top: 12px;
+  display: flex;
 
-  padding: 22px;
+  align-items: center;
 
-  border-radius: 25px;
+  gap: 17px;
 
-  background:
-    linear-gradient(
-      110deg,
-      rgba(65,40,190,.72),
-      rgba(235,45,132,.72)
-    );
 }
 
-.banner h2 {
-  margin:
-    0 0
-    7px;
+.card-icon {
+
+  width: 58px;
+  height: 58px;
+
+  min-width: 58px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 28px;
+
+}
+
+.icon-yellow {
+
+  background: #fff5df;
+
+}
+
+.icon-red {
+
+  background: #ffe5e8;
+
+}
+
+.icon-blue {
+
+  background: #e4f3ff;
+
+}
+
+.card-info {
+
+  flex: 1;
+
+}
+
+.card-title {
 
   font-size: 23px;
+
+  font-weight: 750;
+
 }
 
-.banner p {
-  margin: 0;
+.card-description {
 
-  opacity: .85;
+  margin-top: 6px;
 
-  line-height: 1.4;
+  font-size: 18px;
+
+  line-height: 1.35;
+
+  color: #858a92;
+
 }
 
-/* Нижнее меню */
 
-.nav {
+/* =========================
+   COUNTER
+========================= */
+
+.counter {
+
+  padding:
+    9px
+    16px;
+
+  border-radius: 30px;
+
+  background: #f1f4f8;
+
+  font-size: 17px;
+
+  font-weight: 650;
+
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.action-button {
+
+  width: 100%;
+
+  height: 64px;
+
+  margin-top: 22px;
+
+  border: none;
+
+  border-radius: 35px;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  color: white;
+
+  cursor: pointer;
+
+}
+
+.blue-button {
+
+  background: #8dbbe1;
+
+}
+
+.red-button {
+
+  background: #ef101c;
+
+  box-shadow:
+    0 5px 12px
+    rgba(239,16,28,.15);
+
+}
+
+.action-button:active {
+
+  transform: scale(.98);
+
+}
+
+
+/* =========================
+   TASK ARROW
+========================= */
+
+.task-card {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+}
+
+.task-content {
+
+  flex: 1;
+
+}
+
+.task-arrow {
+
+  font-size: 32px;
+
+  color: #777d86;
+
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav {
+
   position: fixed;
 
-  left: 14px;
-  right: 14px;
+  left: 0;
+  right: 0;
 
-  bottom:
-    calc(
-      10px +
-      env(safe-area-inset-bottom)
-    );
+  bottom: 0;
 
-  max-width: 692px;
+  z-index: 100;
 
-  margin: auto;
+  height: 88px;
 
-  height: 72px;
-
-  border-radius: 25px;
+  padding-bottom:
+    env(safe-area-inset-bottom);
 
   background:
-    rgba(255,255,255,.94);
+    rgba(255,255,255,.97);
+
+  border-top:
+    1px solid #e5e7eb;
 
   display: flex;
 
@@ -322,24 +472,22 @@ body {
   align-items: center;
 
   box-shadow:
-    0 10px 40px
-    rgba(0,0,0,.18);
+    0 -3px 15px
+    rgba(0,0,0,.04);
 
-  backdrop-filter: blur(20px);
-
-  z-index: 10;
 }
 
-.nav button {
-  border: 0;
+.nav-button {
 
-  background: none;
+  flex: 1;
 
-  color: #8c8c95;
+  height: 100%;
 
-  font-size: 11px;
+  border: none;
 
-  font-weight: 650;
+  background: transparent;
+
+  color: #727780;
 
   display: flex;
 
@@ -347,309 +495,506 @@ body {
 
   align-items: center;
 
-  gap: 4px;
+  justify-content: center;
+
+  gap: 5px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
 }
 
-.nav button.active {
-  color: #5737cf;
+.nav-icon {
+
+  font-size: 29px;
+
+  line-height: 1;
+
 }
 
-.nav i {
-  font-style: normal;
-  font-size: 23px;
+.nav-button.active {
+
+  color: #3485cf;
+
 }
 
-/* Маленькие экраны */
 
-@media(max-width:380px) {
+/* =========================
+   MOBILE
+========================= */
 
-  .amount {
-    font-size: 31px;
+@media (max-width: 390px) {
+
+  .app {
+
+    padding-left: 14px;
+    padding-right: 14px;
+
   }
 
-  .title {
-    font-size: 22px;
+  .profile-name {
+
+    font-size: 23px;
+
   }
 
-  .grid {
-    gap: 8px;
+  .profile-username {
+
+    font-size: 16px;
+
+  }
+
+  .avatar {
+
+    width: 58px;
+    height: 58px;
+
+  }
+
+  .balance-card {
+
+    padding: 23px;
+
+    border-radius: 30px;
+
+  }
+
+  .balance-value {
+
+    font-size: 39px;
+
+  }
+
+  .balance-value span {
+
+    font-size: 21px;
+
+  }
+
+  .card {
+
+    padding: 24px;
+
+  }
+
+  .card-title {
+
+    font-size: 20px;
+
+  }
+
+  .card-description {
+
+    font-size: 16px;
+
   }
 
 }
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+.card,
+.balance-card {
+
+  animation:
+    appear .35s ease;
+
+}
+
+@keyframes appear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(8px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
 <div class="app">
 
-  <!-- Верхняя часть -->
 
-  <div class="top">
-
-    <div class="logo">
-      ✦
-    </div>
-
-    <div class="title">
-      NOVA AI
-    </div>
-
-    <button
-      class="iconbtn"
-      onclick="tg.close()"
-    >
-      •••
-    </button>
-
-  </div>
-
-
-  <!-- Профиль -->
+  <!-- PROFILE -->
 
   <div class="profile">
 
-    <div class="avatar">
-      N
-    </div>
+    <div class="profile-left">
 
-    <div>
-
-      <small>
-        Ваш AI уже анализирует рынок!
-      </small>
-
-      <br>
-
-      <b>
-        Добро пожаловать 👋
-      </b>
-
-    </div>
-
-  </div>
-
-
-  <!-- Баланс -->
-
-  <div class="balance">
-
-    <small>
-      Ваш баланс
-    </small>
-
-    <div class="amount">
-      $1,284.62
-    </div>
-
-    <div class="row">
-
-      <button
-        class="btn primary"
-        onclick="alert('Пополнение')"
+      <img
+        class="avatar"
+        src="https://i.pravatar.cc/150?img=12"
+        alt="David"
       >
-        ＋ Пополнить
-      </button>
 
-      <button
-        class="btn ghost"
-        onclick="alert('Вывод')"
-      >
-        Вывести
-      </button>
+      <div>
 
-    </div>
+        <div class="profile-name">
+          David
+        </div>
 
-  </div>
+        <div class="profile-username">
+          @David_Wilson
+        </div>
 
-
-  <!-- Карточки -->
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="emoji">
-        📈
       </div>
 
-      <b>
-        +12.8%
-      </b>
-
-      <span>
-        Доход за неделю
-      </span>
-
     </div>
 
-
-    <div class="card">
-
-      <div class="emoji">
-        ⚡
-      </div>
-
-      <b>
-        24/7
-      </b>
-
-      <span>
-        AI мониторинг
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="emoji">
-        💎
-      </div>
-
-      <b>
-        8,420
-      </b>
-
-      <span>
-        Ваши баллы
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="emoji">
-        👥
-      </div>
-
-      <b>
-        37
-      </b>
-
-      <span>
-        Рефералов
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <!-- Баннер -->
-
-  <div class="banner">
-
-    <h2>
-      🎁 Бонус дня
-    </h2>
-
-    <p>
-      Активируйте сегодняшнее предложение
-      и получите дополнительные баллы
-      на баланс.
-    </p>
-
-    <br>
 
     <button
-      class="btn primary"
-      onclick="alert('Бонус активирован!')"
+      class="security"
+      onclick="securityInfo()"
     >
-      Получить бонус
+      🛡️
     </button>
 
   </div>
 
+
+  <!-- BALANCE -->
+
+  <div class="balance-card">
+
+    <div class="balance-label">
+      Баланс
+    </div>
+
+    <div class="balance-value">
+
+      150.6200
+
+      <span>
+        TRX
+      </span>
+
+    </div>
+
+
+    <div class="balance-stats">
+
+
+      <div class="balance-stat">
+
+        <div class="balance-stat-title">
+          Всего заработано
+        </div>
+
+        <div class="balance-stat-value">
+          165.6200
+        </div>
+
+      </div>
+
+
+      <div class="balance-stat">
+
+        <div class="balance-stat-title">
+          Приглашено
+        </div>
+
+        <div class="balance-stat-value">
+          1
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- DAILY BONUS -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div
+        class="card-icon icon-yellow"
+      >
+        📅
+      </div>
+
+
+      <div class="card-info">
+
+        <div class="card-title">
+          Ежедневный бонус
+        </div>
+
+        <div class="card-description">
+          Заходи каждый день — бонус
+          за серию растёт.
+        </div>
+
+      </div>
+
+
+      <div class="counter">
+        🔥 1
+      </div>
+
+    </div>
+
+
+    <button
+      class="action-button blue-button"
+      onclick="dailyBonus()"
+    >
+      Уже получено
+    </button>
+
+  </div>
+
+
+  <!-- ADVERTISEMENT -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div
+        class="card-icon icon-red"
+      >
+        🎬
+      </div>
+
+
+      <div class="card-info">
+
+        <div class="card-title">
+          Смотреть рекламу
+        </div>
+
+        <div class="card-description">
+          Получай TRX за каждый просмотр.
+        </div>
+
+      </div>
+
+
+      <div class="counter">
+        7/60
+      </div>
+
+    </div>
+
+
+    <button
+      class="action-button red-button"
+      onclick="watchAd()"
+    >
+      Смотреть рекламу +0.0100 TRX
+    </button>
+
+  </div>
+
+
+  <!-- TASKS -->
+
+  <div
+    class="card task-card"
+    onclick="openTasks()"
+  >
+
+    <div
+      class="card-icon icon-blue"
+    >
+      ☑️
+    </div>
+
+
+    <div class="task-content">
+
+      <div class="card-title">
+        Задания
+      </div>
+
+      <div class="card-description">
+        Подписки и простые действия
+      </div>
+
+    </div>
+
+
+    <div class="task-arrow">
+      ›
+    </div>
+
+  </div>
+
+
+  <!-- EXTRA SPACE -->
+
+  <div style="height:20px"></div>
+
+
 </div>
 
 
-<!-- Нижняя навигация -->
+<!-- =========================
+     BOTTOM NAVIGATION
+========================= -->
 
-<div class="nav">
-
-  <button class="active">
-
-    <i>⌂</i>
-
-    Главная
-
-  </button>
+<nav class="bottom-nav">
 
 
-  <button>
+  <button
+    class="nav-button active"
+    onclick="switchTab(this,'Главная')"
+  >
 
-    <i>⌁</i>
+    <div class="nav-icon">
+      ⌂
+    </div>
 
-    Статистика
-
-  </button>
-
-
-  <button>
-
-    <i>◫</i>
-
-    История
+    <div>
+      Главная
+    </div>
 
   </button>
 
 
-  <button>
+  <button
+    class="nav-button"
+    onclick="switchTab(this,'Задания')"
+  >
 
-    <i>♙</i>
+    <div class="nav-icon">
+      ☷
+    </div>
 
-    Профиль
+    <div>
+      Задания
+    </div>
 
   </button>
 
-</div>
+
+  <button
+    class="nav-button"
+    onclick="switchTab(this,'Друзья')"
+  >
+
+    <div class="nav-icon">
+      ♧
+    </div>
+
+    <div>
+      Друзья
+    </div>
+
+  </button>
+
+
+  <button
+    class="nav-button"
+    onclick="switchTab(this,'Профиль')"
+  >
+
+    <div class="nav-icon">
+      ♙
+    </div>
+
+    <div>
+      Профиль
+    </div>
+
+  </button>
+
+
+</nav>
 
 
 <script>
 
-const tg = window.Telegram?.WebApp;
+/* =========================
+   TELEGRAM
+========================= */
+
+const tg =
+  window.Telegram?.WebApp;
+
 
 if (tg) {
 
-  // Инициализация Telegram Web App
-
   tg.ready();
-
-  // Развернуть приложение
 
   tg.expand();
 
 
-  // Цвет верхней панели Telegram
+  /*
+    Белая нативная шапка
+  */
 
   if (tg.setHeaderColor) {
 
-    tg.setHeaderColor("#5b4bd8");
+    tg.setHeaderColor(
+      "#ffffff"
+    );
 
   }
 
 
-  // Цвет фона Telegram
+  /*
+    Цвет фона
+  */
 
   if (tg.setBackgroundColor) {
 
-    tg.setBackgroundColor("#5b4bd8");
+    tg.setBackgroundColor(
+      "#f4f6f8"
+    );
 
   }
 
 
-  // Цвет нижней панели
+  /*
+    Нижняя панель Telegram
+  */
 
   if (tg.setBottomBarColor) {
 
-    tg.setBottomBarColor("#f4f4f6");
+    tg.setBottomBarColor(
+      "#ffffff"
+    );
 
   }
 
 
-  // Отключаем стандартное свайп-закрытие
+  /*
+    Запрещаем свайп
+    для закрытия приложения
+  */
 
   if (tg.disableVerticalSwipes) {
 
@@ -658,7 +1003,9 @@ if (tg) {
   }
 
 
-  // Полноэкранный режим
+  /*
+    Fullscreen
+  */
 
   if (tg.requestFullscreen) {
 
@@ -666,15 +1013,112 @@ if (tg) {
 
       tg.requestFullscreen();
 
-    }
+    } catch (e) {
 
-    catch(e) {}
+      console.log(
+        "Fullscreen unavailable"
+      );
+
+    }
 
   }
 
 }
 
+
+/* =========================
+   DAILY BONUS
+========================= */
+
+function dailyBonus() {
+
+  alert(
+    "Ежедневный бонус уже получен!"
+  );
+
+}
+
+
+/* =========================
+   WATCH AD
+========================= */
+
+function watchAd() {
+
+  alert(
+    "Здесь будет запуск рекламы."
+  );
+
+}
+
+
+/* =========================
+   TASKS
+========================= */
+
+function openTasks() {
+
+  alert(
+    "Открываем задания."
+  );
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function securityInfo() {
+
+  alert(
+    "Безопасность аккаунта."
+  );
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function switchTab(
+  button,
+  name
+) {
+
+  const buttons =
+    document.querySelectorAll(
+      ".nav-button"
+    );
+
+
+  buttons.forEach(
+    item => {
+
+      item.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  console.log(
+    "Открыта вкладка:",
+    name
+  );
+
+}
+
 </script>
 
+
 </body>
+
 </html>
